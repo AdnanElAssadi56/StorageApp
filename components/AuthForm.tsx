@@ -147,18 +147,18 @@ const AuthForm = ({ type }: { type: FormType }) => {
                 : "Already have an account?"}
             </p>
             <Link
-              href={type === "sign-in" ? "/sign-in" : "/sign-up"}
+              href={type === "sign-in" ? "/sign-up" : "/sign-in"}
               className="ml-1 font-medium text-brand"
             >
               {" "}
-              {type === "sign-in" ? "Sign In" : "Sign Up"}
+              {type === "sign-in" ? "Sign Up" : "Sign In"}
             </Link>
           </div>
         </form>
       </Form>
 
       {accountId && (
-        <otpModal email={form.getValues("email")} accountId={accountId} />
+        <OtpModal email={form.getValues("email")} accountId={accountId} />
       )}
     </>
   );
