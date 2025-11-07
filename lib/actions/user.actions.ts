@@ -3,7 +3,8 @@
 import { createAdminClient, createSessionClient } from "@/lib/appwrite";
 import { appwriteConfig } from "@/lib/appwrite/config";
 import { Query, ID } from "node-appwrite";
-import { parseStringify } from "@/lib/utils";
+import { InputFile } from "node-appwrite/file";
+import { parseStringify, constructFileUrl } from "@/lib/utils";
 import { cookies } from "next/headers";
 import { avatarPlaceholderUrl } from "@/constants";
 import { redirect } from "next/navigation";
@@ -145,5 +146,53 @@ export const signInUser = async ({ email }: { email: string }) => {
     return parseStringify({ accountId: null, error: "User not found" });
   } catch (error) {
     handleError(error, "Failed to sign in user");
+  }
+};
+
+export const updateUserProfile = async ({
+  userId,
+  fullName,
+  avatarFile,
+}: {
+  userId: string;
+  fullName?: string;
+  avatarFile?: File;
+}) => {
+  try {
+    const { tables, storage } = await createAdminClient();
+    const currentUser = await getCurrentUser();
+
+    if (currentUser.$id !== userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const updateData: any = {};
+
+    // Handle avatar upload if provided
+    if (avatarFile) {
+      const inputFile = InputFile.fromBuffer(avatarFile, avatarFile.name);
+
+      const uploadedFile = await storage.createFile({
+        bucketId: appwriteConfig.bucketId,
+        fileId: ID.unique(),
+        file: inputFile,
+      });
+
+      updateData.avatar = constructFileUrl(uploadedFile.$id);
+    }
+
+    // Handle name update if provided
+    if (fullName) updateData.fullName = fullName;
+
+    const updatedUser = await tables.updateRow({
+      databaseId: appwriteConfig.databaseId,
+      tableId: appwriteConfig.usersTableId,
+      rowId: userId,
+      data: updateData,
+    });
+
+    return parseStringify(updatedUser);
+  } catch (error) {
+    handleError(error, "Failed to update user profile");
   }
 };

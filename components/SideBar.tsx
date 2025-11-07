@@ -5,14 +5,16 @@ import Image from "next/image";
 import { navItems } from "@/constants";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import ProfileEditModal from "@/components/ProfileEditModal";
 
 interface Props {
+  userId: string;
   fullName: string;
   avatar: string;
   email: string;
 }
 
-const SideBar = ({ fullName, avatar, email }: Props) => {
+const SideBar = ({ userId, fullName, avatar, email }: Props) => {
   const pathname = usePathname();
 
   return (
@@ -82,7 +84,14 @@ const SideBar = ({ fullName, avatar, email }: Props) => {
           <p className="subtitle-2 capitalize">{fullName}</p>
           <p className="caption">{email}</p>
         </div>
+        <ProfileEditModal 
+          userId={userId}
+          currentName={fullName}
+          currentAvatar={avatar}
+        />
       </div>
+
+      
     </aside>
   );
 };
