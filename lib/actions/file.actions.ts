@@ -5,7 +5,12 @@ import { InputFile } from "node-appwrite/file";
 
 import React from "react";
 import { appwriteConfig } from "@/lib/appwrite/config";
-import { constructFileUrl, getFileType, parseStringify } from "@/lib/utils";
+import {
+  constructFileUrl,
+  getFileType,
+  getFileTypesParams,
+  parseStringify,
+} from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { ID, Models, Query } from "node-appwrite";
 import { getCurrentUser } from "@/lib/actions/user.actions";
@@ -205,7 +210,7 @@ export async function getTotalSpaceUsed() {
   try {
     const { tables } = await createSessionClient();
     const currentUser = await getCurrentUser();
-    if (!currentUser) throw new Error("User is not authenticated.");
+    if (!currentUser) throw new Error("User is not authenticated");
 
     const files = await tables.listRows({
       databaseId: appwriteConfig.databaseId,
@@ -226,6 +231,7 @@ export async function getTotalSpaceUsed() {
     files.rows.forEach((file) => {
       const fileType = file.type as FileType;
       totalSpace[fileType].size += file.size;
+
       totalSpace.used += file.size;
 
       if (
@@ -235,7 +241,6 @@ export async function getTotalSpaceUsed() {
         totalSpace[fileType].latestDate = file.$updatedAt;
       }
     });
-
     return parseStringify(totalSpace);
   } catch (error) {
     handleError(error, "Error calculating total space used:, ");
