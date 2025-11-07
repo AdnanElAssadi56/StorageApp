@@ -116,9 +116,9 @@ const ActionDropdown = ({ file }: { file: Models.Row }) => {
           {value === "details" && <FileDetails file={file} />}
           {value === "share" && (
             <ShareInput
-            // file={file}
-            // onInputChange={setEmails}
-            // onRemove={handleRemoveUser}
+              file={file}
+              onInputChange={setEmails}
+              onRemove={handleRemoveUser}
             />
           )}
           {value === "delete" && (

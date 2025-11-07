@@ -89,6 +89,8 @@ const createQueries = (
   if (searchText) queries.push(Query.contains("name", searchText));
   if (limit) queries.push(Query.limit(limit));
 
+  queries.push(Query.select(["*", "owner.*"]));
+
   if (sort) {
     const [sortBy, orderBy] = sort.split("-");
 
