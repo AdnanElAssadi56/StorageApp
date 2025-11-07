@@ -8,6 +8,7 @@ import {
 } from "@/lib/utils";
 import { Models } from "node-appwrite";
 import Card from "@/components/Card";
+import { getCurrentUser } from "@/lib/actions/user.actions";
 
 const Page = async ({
   params,
@@ -23,9 +24,12 @@ const Page = async ({
   const types = getFileTypesParams(type) as FileType[];
 
   const [files, totalSpace] = await Promise.all([
-    getFiles({ types: [], limit: 10 }),
+    getFiles({ types, searchText, sort }),
     getTotalSpaceUsed(),
   ]);
+
+  const user = await getCurrentUser();
+
   const usageSummary = getUsageSummary(totalSpace);
 
   return (
@@ -35,7 +39,9 @@ const Page = async ({
 
         <div className="total-size-section">
           {usageSummary
-            .filter((summary) => summary.title.toLowerCase() === type)
+            .filter(
+              (summary) => summary.title.toLowerCase() === type.toLowerCase(),
+            )
             .map((summary) => (
               <p key={summary.title} className="body-1">
                 Total:{" "}
@@ -53,7 +59,7 @@ const Page = async ({
       {files.total > 0 ? (
         <section className="file-list">
           {files.rows.map((file: Models.Row) => (
-            <Card key={file.$id} file={file} />
+            <Card key={file.$id} file={file} user={user} />
           ))}
         </section>
       ) : (

@@ -44,7 +44,13 @@ import { ShareInput } from "@/components/ActionModalContent";
 import Link from "next/link";
 import { constructDownloadUrl } from "@/lib/utils";
 
-const ActionDropdown = ({ file }: { file: Models.Row }) => {
+const ActionDropdown = ({
+  file,
+  user,
+}: {
+  file: Models.Row;
+  user: Models.Row;
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [action, setAction] = useState<ActionType | null>(null);
@@ -117,6 +123,7 @@ const ActionDropdown = ({ file }: { file: Models.Row }) => {
           {value === "share" && (
             <ShareInput
               file={file}
+              currentUser={user}
               onInputChange={setEmails}
               onRemove={handleRemoveUser}
             />

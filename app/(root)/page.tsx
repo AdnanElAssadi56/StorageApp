@@ -8,8 +8,10 @@ import { Models } from "node-appwrite";
 import Thumbnail from "@/components/Thumbnail";
 import ActionDropdown from "@/components/ActionDropdown";
 import Chart from "@/components/Chart";
+import { getCurrentUser } from "@/lib/actions/user.actions";
 
 const Dashboard = async () => {
+  const user = await getCurrentUser();
   const [files, totalSpace] = await Promise.all([
     getFiles({ types: [], limit: 10 }),
     getTotalSpaceUsed(),
@@ -79,7 +81,7 @@ const Dashboard = async () => {
                       className="caption"
                     />
                   </div>
-                  <ActionDropdown file={file} />
+                  <ActionDropdown file={file} user={user} />
                 </div>
               </Link>
             ))}

@@ -6,6 +6,7 @@ import { convertFileSize, formatDateTime } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { getCurrentUser } from "@/lib/actions/user.actions";
 
 const ImageThumbnail = ({ file }: { file: Models.Row }) => (
   <div className="file-details-thumbnail">
@@ -40,11 +41,17 @@ export const FileDetails = ({ file }: { file: Models.Row }) => {
 
 interface Props {
   file: Models.Row;
+  currentUser: Models.Row;
   onInputChange: React.Dispatch<React.SetStateAction<string[]>>;
   onRemove: (email: string) => void;
 }
 
-export const ShareInput = ({ file, onInputChange, onRemove }: Props) => {
+export const ShareInput = ({
+  file,
+  currentUser,
+  onInputChange,
+  onRemove,
+}: Props) => {
   return (
     <>
       <ImageThumbnail file={file} />
@@ -74,18 +81,20 @@ export const ShareInput = ({ file, onInputChange, onRemove }: Props) => {
                 className="flex items-center justify-between gap-2"
               >
                 <p className="subtitle-2">{email}</p>
-                <Button
-                  onClick={() => onRemove(email)}
-                  className="share-remove-user"
-                >
-                  <Image
-                    src="/assets/icons/remove.svg"
-                    alt="Remove"
-                    width={24}
-                    height={24}
-                    className="remove-icon"
-                  />
-                </Button>
+                {currentUser.$id === file.owner.$id && (
+                  <Button
+                    onClick={() => onRemove(email)}
+                    className="share-remove-user"
+                  >
+                    <Image
+                      src="/assets/icons/remove.svg"
+                      alt="Remove"
+                      width={24}
+                      height={24}
+                      className="remove-icon"
+                    />
+                  </Button>
+                )}
               </li>
             ))}
           </ul>
