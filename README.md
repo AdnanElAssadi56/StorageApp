@@ -109,7 +109,6 @@ Prism uses a modern purple color scheme:
 
 - **Primary:** `#552390` (Deep Purple)
 - **Accent:** `#7B3FBF` (Light Purple)
-- **Error:** `#b80000` (Red)
 
 ## 📝 Environment Variables
 
