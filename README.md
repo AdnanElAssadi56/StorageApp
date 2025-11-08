@@ -45,8 +45,8 @@ Prism is a comprehensive cloud storage solution that enables users to upload, or
 
 1. **Clone the repository**
 ```bash
-git clone <your-repo-url>
-cd prism
+git clone https://github.com/AdnanElAssadi56/Prism.git
+cd Prism
 ```
 
 2. **Install dependencies**
