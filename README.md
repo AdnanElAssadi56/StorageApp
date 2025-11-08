@@ -1,6 +1,6 @@
 # Prism - Cloud Storage Platform
 
-A modern, full-featured cloud storage platform built with Next.js 15 and Appwrite, featuring secure file management, real-time collaboration, and an elegant user interface.
+A modern, full-featured cloud storage platform built with Next.js 16 and Appwrite, featuring secure file management, real-time collaboration, and an elegant user interface.
 
 ![Dashboard](public/assets/images/Dashboard.png)
 
