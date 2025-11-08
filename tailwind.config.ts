@@ -11,8 +11,8 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          '100': '#EA6365',
-          DEFAULT: '#FA7275'
+          '100': '#7B3FBF',
+          DEFAULT: '#552390'
         },
         red: '#FF7474',
         error: '#b80000',
@@ -76,8 +76,8 @@ const config: Config = {
       },
       boxShadow: {
         'drop-1': '0px 10px 30px 0px rgba(66, 71, 97, 0.1)',
-        'drop-2': '0 8px 30px 0 rgba(65, 89, 214, 0.3)',
-        'drop-3': '0 8px 30px 0 rgba(65, 89, 214, 0.1)'
+        'drop-2': '0 8px 30px 0 rgba(85, 35, 144, 0.3)',
+        'drop-3': '0 8px 30px 0 rgba(85, 35, 144, 0.1)'
       },
       borderRadius: {
         lg: 'var(--radius)',

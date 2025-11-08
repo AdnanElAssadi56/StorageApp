@@ -65,7 +65,7 @@ const SideBar = ({ userId, fullName, avatar, email }: Props) => {
       </nav>
 
       <Image
-        src="/assets/images/files-2.png"
+        src="/assets/images/files-colored.svg"
         alt="logo"
         width={506}
         height={418}
@@ -84,14 +84,12 @@ const SideBar = ({ userId, fullName, avatar, email }: Props) => {
           <p className="subtitle-2 capitalize">{fullName}</p>
           <p className="caption">{email}</p>
         </div>
-        <ProfileEditModal 
+        <ProfileEditModal
           userId={userId}
           currentName={fullName}
           currentAvatar={avatar}
         />
       </div>
-
-      
     </aside>
   );
 };
