@@ -6,6 +6,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <div className="flex min-h-screen">
       <section className="hidden w-1/2 items-center justify-center bg-brand p-10 lg:flex xl:w-2/5">
         <div className="flex max-h-[800px] max-w-[430px] flex-col justify-center space-y-12">
+          <div className="flex items-center gap-4">
+            <Image
+              src="/assets/icons/logo-brand.svg"
+              alt="Prism logo"
+              width={90}
+              height={90}
+            />
+            <h2 className="text-[40px] font-bold text-white">Prism</h2>
+          </div>
           <div className="space-y-5 text-white">
             <h1 className="h1">Manage your files the best way</h1>
             <p className="body-1">
